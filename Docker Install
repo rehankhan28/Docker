@@ -6,3 +6,4 @@ sudo apt install docker.io
 sudo service docker start
 sudo service docker status
 sudo usermod -aG docker ubuntu
+docker -v
