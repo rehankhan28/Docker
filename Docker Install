@@ -7,3 +7,97 @@ sudo service docker start
 sudo service docker status
 sudo usermod -aG docker ubuntu
 docker -v
+=================================
+Docker Commands
+=================================
+
+# To display docker images available in our machine
+$ docker images
+
+# To display running docker containers in our machine
+$ docker ps
+
+# To display stopped & running containers
+$ docker ps -a
+
+# To download docker image
+$ docker pull <image-name>
+
+# Run docker image to create docker container
+$ docker run <image-name>
+
+# Run docker container in detached mode
+$ docker run -d <image-name>
+
+Note: Detached mode will help us to run other commands in same tab
+
+# Display Docker container logs
+$ docker logs <container-id>
+
+# Stop Running Docker Container
+$ docker stop <container-id>
+
+# Start Docker container which is stopped
+$ docker start <container-id>
+
+# Delete Docker container which is in stopped state
+$ docker rm <container-id>
+
+# Delete Running Docker container
+$ docker rm -f <container-id>
+
+# Remove Docker Image
+$ docker rmi <image-name/image-id>
+
+# Remove all stopped containers + unused docker images
+$ docker system prune -a
+===============================================
+How to push Docker Image to Docker Hub Account
+===============================================
+# login into docker hub account
+$ docker login
+
+# Tag docker image
+$ docker tag <image-name> <tag-name>
+Ex: docker tag myimg123 ashokit/myimg123
+
+$ docker images
+
+$ docker push <tagname>
+=================================
+Java Web Application
+=================================
+## Step-1:: Install git client software
+
+$ sudo yum install git
+## Step-2:: Clone git repo
+$ git clone https://github.com/ashokitschool/maven-web-app.git
+
+## Step-3 :: Go inside project directory
+$ cd maven-web-app
+
+## Step-4 :: Install Maven software
+$ sudo yum install maven
+
+## Step-5 :: Build Project using maven goals
+$ mvn clean package
+
+## Step-4 :: Create Dockerfile
+$ vi Dockerfile
+	FROM tomcat:8.0.20-jre8
+	COPY target/01-maven-web-app.war /usr/local/tomcat/webapps/maven-web-app.war
+
+## Step-5 : Build Docker Image
+$ docker build -t <image-name> .
+
+## Step-6 : Check Docker Image created
+$ docker images
+
+## Step-7 :: Run Docker Image
+$ docker run -p 8080:8080 -d <image-name>
+
+## Step-8 :: Check Docker Container
+$ docker ps
+## Step-9 :: Enable 8080 port in EC2 VM security group inbound rules
+## Step-10 :: Access Application in browser
+	URL : http://public-ip:8080/maven-web-app/
